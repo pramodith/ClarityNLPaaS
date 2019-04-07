@@ -1,0 +1,21 @@
+limit 10;
+
+phenotype "Chronic Disease" version "1";
+
+include ClarityCore version "1.0" called Clarity;
+
+documentset SubmittedDocs:
+     Clarity.createDocumentSet({
+         "query":"source:%s"});
+
+termset ChronicDisease:
+ ["hiv","HIV" ,"cushing syndrome", "Cushing syndrom", "Cushing Syndrome", "CKD", "acromegaly", "Acromegaly", "hyperthyroidism","Hyperthyroidism",
+ "cancer","Cancer","Asthma","asthma","arthritis","Arthritis","dementia","Dementia","Chron Disease","epilepsy","Epilepsy"];
+
+
+define final hasChronicDisease:
+ Clarity.ProviderAssertion({
+   termset:[ChronicDisease],
+   negated:"Affirmed",
+   documentset:[SubmittedDocs]
+   });
